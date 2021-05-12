@@ -87,3 +87,21 @@
     }
   }
 }
+
+.selected {
+  background-color: #3366ff;
+  transition: 0.5s ease;
+  border-radius: 10px;
+  .movie__poster {
+    border-radius: 10px 10px 0 0;
+  }
+  .image-overlay {
+    opacity: 1;
+  }
+  .movie__date {
+    color: #FFF;
+  }
+  .movie__title {
+    color: #FFF;
+  }
+}

@@ -13,7 +13,7 @@
       <ion-button color="primary" class="search__button"><ion-icon name="search"></ion-icon></ion-button>
   </form>
   <div class="results">
-    <div class="movie" *ngFor="let movie of results">
+    <div class="movie" *ngFor="let movie of results; let i = index" (click)="toggleSelected(i)" [ngClass]="index === i ? 'selected' : ''">
       <div class="movie__image">
         <img *ngIf="movie.poster_path !== null" class="movie__poster" src="{{ movieTv.getImage(movie.poster_path) }}" alt="">
         <img *ngIf="movie.poster_path === null" class="movie__poster-null">

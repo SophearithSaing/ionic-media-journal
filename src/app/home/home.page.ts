@@ -12,6 +12,7 @@ export class HomePage implements OnInit {
   results: Movie[] = [];
   query = '';
   loading = false;
+  index = null;
 
   constructor(public movieTv: MovieTvService) { }
 
@@ -26,4 +27,11 @@ export class HomePage implements OnInit {
     });
   };
 
+  toggleSelected = (i: number) => {
+    if (this.index === i) {
+      this.index = null;
+    } else {
+      this.index = i;
+    }
+  };
 }
