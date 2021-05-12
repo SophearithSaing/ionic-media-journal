@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Movie } from '../models/movie';
+import { MovieTvService } from '../services/movie-tv.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  results: Movie[] = [];
+  query = '';
+  loading = false;
+
+  constructor(public movieTv: MovieTvService) { }
 
   ngOnInit() {
   }
+
+  search = () => {
+    this.loading = true;
+    this.movieTv.searchMovies(this.query).subscribe(res => {
+      this.results = res.results;
+      this.loading = false;
+    });
+  };
 
 }
