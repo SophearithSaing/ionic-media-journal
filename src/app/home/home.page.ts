@@ -17,6 +17,10 @@ export class HomePage implements OnInit {
   constructor(public movieTv: MovieTvService) { }
 
   ngOnInit() {
+    this.movieTv.saveMovie({data: 'data'})
+      .then(res => {
+        console.log(res);
+      });
   }
 
   search = () => {
