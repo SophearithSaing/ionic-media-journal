@@ -6,11 +6,8 @@
 
 <ion-content>
   <form class="search" (submit)="search()">
-      <ion-item class="search__input">
-        <ion-label position="floating">Search...</ion-label>
-        <ion-input [(ngModel)]="query" [ngModelOptions]="{standalone: true}"></ion-input>
-      </ion-item>
-      <ion-button color="primary" class="search__button"><ion-icon name="search"></ion-icon></ion-button>
+      <input class="search__input" type="text" placeholder="Search..." [(ngModel)]="query" [ngModelOptions]="{standalone: true}">
+      <button class="search__button"><ion-icon name="search"></ion-icon></button>
   </form>
   <div class="results">
     <div class="movie" *ngFor="let movie of results; let i = index" (click)="toggleSelected(i)" [ngClass]="index === i ? 'selected' : ''">
