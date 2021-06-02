@@ -8,27 +8,53 @@
 </ion-header>
 
 <ion-content>
+
   <form class="search" (submit)="search()">
       <input class="search__input" type="text" placeholder="Search..." [(ngModel)]="query" [ngModelOptions]="{standalone: true}">
       <button class="search__button"><ion-icon name="search"></ion-icon></button>
   </form>
   <div class="results">
-    <div class="movie" *ngFor="let movie of results; let i = index" (click)="toggleSelected(i)" [ngClass]="index === i ? 'selected' : ''">
+    <div class="movie" *ngFor="let movie of results; let i = index" (click)="toggleSelected(i)" [ngClass]="movieIndex === i ? 'selected' : ''">
       <div class="movie__image">
-        <img *ngIf="movie.poster_path !== null" class="movie__poster" src="{{ movieTv.getImage(movie.poster_path) }}" alt="">
-        <img *ngIf="movie.poster_path === null" class="movie__poster-null">
+        <img *ngIf="movie?.poster_path !== null" class="movie__poster" src="{{ movieTv?.getImage(movie?.poster_path) }}" alt="">
+        <img *ngIf="movie?.poster_path === null" class="movie__poster-null">
         <div class="image-overlay">
-          <button class="image-overlay__button">Save</button>
+          <button class="image-overlay__button" (click)="toggleForm(i)">Save</button>
         </div>
       </div>
       <div class="movie__info">
         <p class="movie__date">
-          {{ movieTv.formatDate(movie.release_date) }}
+          {{ movieTv?.formatDate(movie?.release_date) }}
         </p>
         <p class="movie__title">
-          {{ movie.title }}
+          {{ movie?.title }}
         </p>
       </div>
+    </div>
+    <div class="save-movie" [ngClass]="savingMovie ? 'show-modal' : 'hide-modal'">
+      <ion-card class="save-movie__card">
+        <ion-card-header>
+          <ion-card-title>{{ selectedMovie?.title }}</ion-card-title>
+          <ion-card-subtitle>{{ movieTv.formatDate(selectedMovie?.release_date) }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item-group>
+            <ion-item>
+              <ion-label>Start Date</ion-label>
+              <ion-datetime displayFormat="DD MMM YY" placeholder="Select Date" [(ngModel)]="startDate"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>End Date</ion-label>
+              <ion-datetime displayFormat="DD MMM YY" placeholder="Select Date" [(ngModel)]="endDate"></ion-datetime>
+            </ion-item>
+          </ion-item-group>
+          <ion-buttons class="save-movie__buttons">
+            <ion-button color="primary" (click)="saveMovie()">Save</ion-button>
+            <ion-button color="danger" (click)="toggleForm()">Cancel</ion-button>
+          </ion-buttons>
+        </ion-card-content>
+      </ion-card>
     </div>
   </div>
 </ion-content>
