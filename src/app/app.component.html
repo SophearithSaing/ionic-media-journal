@@ -2,9 +2,31 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Username</ion-list-header>
-          <ion-note>email@ionicframework.com</ion-note>
+        <ion-list id="menu-list">
+          <div *ngIf="auth.user$ | async; then authenticated else guest">
+            <!-- template will replace this div -->
+          </div>
+
+          <!-- User NOT logged in -->
+          <ng-template #guest>
+            <div class="user">
+              <ion-icon icon="person" class="user__icon"></ion-icon>
+              <ion-label>Guest</ion-label>
+              <ion-button color="primary" size="small" (click)="auth.googleSignin()">Login with Google</ion-button>
+            </div>
+          </ng-template>
+
+          <!-- User logged in -->
+          <ng-template #authenticated class="user">
+            <div *ngIf="auth.user$ | async as user" class="user">
+              <ion-avatar>
+                <img [src]="user.photoURL">
+              </ion-avatar>
+              <ion-label>{{ user.displayName }}</ion-label>
+              <ion-note>{{ user.email }}</ion-note>
+              <ion-button color="light" size="small" (click)="auth.signOut()">Logout</ion-button>
+            </div>
+          </ng-template>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
