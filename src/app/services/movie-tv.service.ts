@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Movie } from '../models/movie';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { SavedMovie } from '../models/saved-movie';
 
 
 @Injectable({
@@ -50,12 +51,12 @@ export class MovieTvService {
     return `${str[0]}, ${str[2]} ${str[1]} ${str[3]}`;
   };
 
-  saveMovie(data: any) {
+  saveMovie(movie: SavedMovie) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection('movies')
-        .add(data)
-        .then(res => { }, err => reject(err));
+        .add(movie)
+        .then(res => { console.log(res); }, err => reject(err));
     });
   };
 
