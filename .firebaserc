@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "media-journal-a6c37": {
+      "hosting": {
+        "app": [
+          "media-journal-a6c37"
+        ]
+      }
+    }
+  }
+}
